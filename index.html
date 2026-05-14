@@ -15,6 +15,7 @@
   <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-database.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-analytics.js"></script>
   <!-- firebase end ******************************************-->
+
   <script src="fb_setup.js"></script>
   <script src="fb_io.js"></script>
   <!-- <script type="module" src="./main.mjs"></script> -->
@@ -25,7 +26,8 @@
     <h1>Sal’s Strawberry Saloon</h1>
     <h2>(and other fruit products)</h2>
 
-    <button onclick="fb_authenticate()">Login with Google</button>
+    <button onclick="fb_authenticate()">Login with Google</button> 
+    <P> <div id="databaseOutput"></div> </P>
 
     <form id="fruitForm">
       <label for="name">Your Name:</label>
