@@ -11,6 +11,8 @@ const HTML_OUTPUT = document.getElementById("databaseOutput");
 var GLOBAL_user;
 var userName;
 var userEmail;
+var favFruit;
+let loggedIn = false
 
 function fb_authenticate() {
   console.log("Logging in user")
@@ -27,6 +29,7 @@ function fb_handleLogin(_user) {
     console.log("Name: " + userName)
     console.log("Email " + userEmail)
     HTML_OUTPUT.innerHTML += "<p> Welcome " + userEmail + "! <p>"
+    loggedIn = true
   } else {
     console.log("User is NOT logged in - starting the popup process")
     fb_popupLogin();
@@ -45,10 +48,27 @@ function fb_popupLogin() {
     console.log("Name: " + userName)
     console.log("Email " + userEmail)
     HTML_OUTPUT.innerHTML += "<p> Welcome " + userEmail + "! <p>"
+    loggedIn = true
   });
 }
 
-function writeForm(){
+function fb_write(){
     // Get the form data
     const favoriteFruit = document.getElementById("favoriteFruit").value;
+    if(loggedIn == true) {
+    var favFruit = prompt("Hello " + userName + "! What is your favourite fruit?");
+    console.log(userName + " likes " + favFruit + " best.");
+    saveFavFruit()
+    } else {
+      alert("Please log in first");
+    }
+  }
+
+  function saveFavFruit(){
+   console.log("Running savefavFruit()")
+   firebase.database().ref('/').set(
+    {
+      message: favFruit
+    }
+  )
 }
