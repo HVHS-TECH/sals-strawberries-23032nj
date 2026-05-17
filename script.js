@@ -68,7 +68,19 @@ function fb_write(){
    console.log("Running savefavFruit()")
    firebase.database().ref('/').set(
     {
-      message: favFruit
+      message: 'favFruit'
     }
   )
+}
+
+function fb_write() {
+  personName = document.getElementById("name").value;
+  personFruit = document.getElementById("favoriteFruit").value;
+  personServings = document.getElementById("fruitQuantity").value;
+
+    p_name.textContent = "Welcome " + personName  
+
+
+
+
 }
