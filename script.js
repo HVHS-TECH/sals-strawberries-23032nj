@@ -20,14 +20,7 @@ let customerFavFruit ;
 /************************************* 
 //logging in
 *************************************/
-function fb_authenticate() {
-  console.log("Logging in user")
-  authenticationListener = firebase.auth().onAuthStateChanged(fb_handleLogin);
-  fruitsTable();
-}
 
-//temporary
-function fruitsTable() {
  firebase.database().ref('/').set (
   {
     fruits: {
@@ -37,6 +30,11 @@ function fruitsTable() {
     }
   }
  );
+
+function fb_authenticate() {
+  console.log("Logging in user")
+  authenticationListener = firebase.auth().onAuthStateChanged(fb_handleLogin);
+  //fruitsTable();
 }
 
 //run when the login state of the user changes
@@ -97,7 +95,7 @@ function fb_write(){
 
   function saveFavFruit(){
    console.log("Running savefavFruit()")
-   firebase.database().ref('/fruits/customers/'+customer).set(customerFavFruit);
+   firebase.database().ref('/fruits/customers/'+customer).update({customerFavFruit});
   }
 
   //old code
