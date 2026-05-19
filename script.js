@@ -1,22 +1,42 @@
-
+/************************************* 
+// script.js
+// written by Nia 
+// Sal's Strawberries
+*************************************/
 console.log("Running Sal's Strawberries")
 
 //constants
 const HTML_OUTPUT = document.getElementById("databaseOutput");
 
-/************************************* 
-//logging in
-*************************************/
-
+//variables
 var GLOBAL_user;
+let loggedIn = false;
 var userName;
 var userEmail;
 var favFruit;
-let loggedIn = false
+let customer;
+let customerFavFruit ;
 
+/************************************* 
+//logging in
+*************************************/
 function fb_authenticate() {
   console.log("Logging in user")
   authenticationListener = firebase.auth().onAuthStateChanged(fb_handleLogin);
+  fruitsTable();
+}
+
+//temporary
+function fruitsTable() {
+ firebase.database().ref('/').set (
+  {
+    fruits: {
+      customers: {
+        Anu: 'Watermelon'
+      }
+    }
+  }
+ );
 }
 
 //run when the login state of the user changes
@@ -52,13 +72,24 @@ function fb_popupLogin() {
   });
 }
 
+/************************************* 
+//getting the users information, saving it to the database, and displaying it in an email
+*************************************/
+
 function fb_write(){
     // Get the form data
-    const favoriteFruit = document.getElementById("favoriteFruit").value;
     if(loggedIn == true) {
-    var favFruit = prompt("Hello " + userName + "! What is your favourite fruit?");
-    console.log(userName + " likes " + favFruit + " best.");
-    saveFavFruit()
+      const personName = document.getElementById("name").value;
+      const personFruit = document.getElementById("favoriteFruit").value;
+      const personServings = document.getElementById("fruitQuantity").value;
+
+      p_name.textContent = "Welcome " + personName  
+      p_favoriteFruit.textContent = "Your favourite fruit is " + personFruit
+      p_servings.textContent = "You like to have it " + personServings + " times."
+
+      customer = personName
+      customerFavFruit = personFruit
+      saveFavFruit()
     } else {
       alert("Please log in first");
     }
@@ -66,21 +97,13 @@ function fb_write(){
 
   function saveFavFruit(){
    console.log("Running savefavFruit()")
-   firebase.database().ref('/').set(
-    {
-      message: 'favFruit'
-    }
-  )
-}
+   firebase.database().ref('/fruits/customers/'+customer).set(customerFavFruit);
+  }
 
-function fb_write() {
-  personName = document.getElementById("name").value;
-  personFruit = document.getElementById("favoriteFruit").value;
-  personServings = document.getElementById("fruitQuantity").value;
+  //old code
 
-    p_name.textContent = "Welcome " + personName  
-
-
-
-
-}
+//if(loggedIn == true) {
+//var favFruit = prompt("Hello " + userName + "! What is your favourite fruit?");
+//console.log(userName + " likes " + favFruit + " best.");
+//customer = userName
+//customerFavFruit = favFruit
