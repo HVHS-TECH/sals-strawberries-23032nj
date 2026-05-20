@@ -38,7 +38,7 @@
       <input type="text" id="favoriteFruit" name="favoriteFruit" required />
 
       <label for="fruitQuantity">How many servings per week?</label>
-      <input type="number" id="fruitQuantity" name="fruitQuantity" required />
+      <input type="number" id="fruitQuantity" name="fruitQuantity" min="1" max="30" required />
 
       <!-- add more fields here -->
     </form>
@@ -49,6 +49,7 @@
     <p id="p_favoriteFruit"> </p>
     <p id="p_servings"> </p>
 
+    <button onclick="fb_email()">Email</button>
 
     <p id="statusMessage"></p>
   </div>

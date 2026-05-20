@@ -95,7 +95,7 @@ function fb_write(){
 
   function saveFavFruit(){
    console.log("Running savefavFruit()")
-   firebase.database().ref('/fruits/customers/'+customer).update({customerFavFruit});
+   firebase.database().ref('/fruits/customers/'+customer).set(customerFavFruit);
   }
 
   //old code
