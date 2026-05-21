@@ -1,9 +1,9 @@
 /************************************* 
 // script.js
 // written by Nia 
-// Sal's Strawberries
+// Nia's Nectarines
 *************************************/
-console.log("Running Sal's Strawberries")
+console.log("Running Nia's Nectarines")
 
 //constants
 const HTML_OUTPUT = document.getElementById("databaseOutput");
