@@ -21,15 +21,15 @@ let customerFavFruit ;
 //logging in
 *************************************/
 
- firebase.database().ref('/').set (
-  {
-    fruits: {
-      customers: {
-        Anu: 'Watermelon'
-      }
-    }
-  }
- );
+ //firebase.database().ref('/').set (
+ // {
+ //   fruits: {
+ //     customers: {
+ //       Anu: 'Watermelon'
+ //     }
+  //  }
+ // }
+ //);
 
 function fb_authenticate() {
   console.log("Logging in user")
