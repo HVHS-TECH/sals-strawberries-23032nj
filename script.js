@@ -17,6 +17,8 @@ var userName;
 var userEmail;
 let customer;
 let customerFavFruit ;
+let customerID;
+let customerReview;
 
 /************************************* 
 //logging in
@@ -35,8 +37,10 @@ function fb_handleLogin(_user) {
     console.log("User is logged in")
     userName = GLOBAL_user.displayName
     userEmail = GLOBAL_user.email
+    userID = GLOBAL_user.uid
     console.log("Name: " + userName)
-    console.log("Email " + userEmail)
+    console.log("Email: " + userEmail)
+    console.log("ID: " + userID)
     HTML_OUTPUT.innerHTML += "<p> Welcome " + userEmail + "! <p>"
     loggedIn = true
   } else {
@@ -53,9 +57,10 @@ function fb_popupLogin() {
     GLOBAL_user = result.user; //save the user details object to a global variable
     console.log("User has logged in")
     userName = GLOBAL_user.displayName
-    userEmail = GLOBAL_user.email
+    console.log(GLOBAL_user);
     console.log("Name: " + userName)
     console.log("Email " + userEmail)
+    console.log("ID: " + userID)
     HTML_OUTPUT.innerHTML += "<p> Welcome " + userEmail + "! <p>"
     loggedIn = true
   });
@@ -75,10 +80,11 @@ function fb_write(){
       p_name.textContent = "Welcome " + personName  
       p_favoriteFruit.textContent = "Your favourite fruit is " + personFruit
       p_servings.textContent = "You like to have it " + personServings + " times."
-      p_offer.textContent = "Please click 'email' to receice your offer"
+      p_offer.textContent = "Please click 'email' to receive your offer"
 
       customer = personName
       customerFavFruit = personFruit
+      customerID = userID
       saveFavFruit()
       formFilled = true;
     } else {
@@ -88,8 +94,35 @@ function fb_write(){
 
   function saveFavFruit(){
    console.log("Running savefavFruit()")
-   firebase.database().ref('/fruits/customers/'+customer).set(customerFavFruit);
+   firebase.database().ref('/fruits/customers/'+customerID).update(
+    {
+    Name: customer,
+    FavouriteFruit: customerFavFruit 
+    }
+   );
+   //firebase.database().ref('/fruits/customers/'+customer).set(customerFavFruit);
   }
+
+ function fb_review() {
+  if (formFilled == true) {
+  console.log("Running fb_review");
+  const personReview = document.getElementById("userReview").value;
+  customerReview = personReview
+  saveUserReview();
+  }
+  else {
+  alert("Please fill out the form before submitting a review")
+  }
+ }
+
+ function saveUserReview() {
+  console.log("Running saveUserReview");
+  firebase.database().ref('/fruits/customers/'+customerID).update(
+    {
+    Review: customerReview
+    }
+  )
+ }
 
   function fb_email() {
     if(loggedIn == true && formFilled == true) {

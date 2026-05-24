@@ -43,7 +43,16 @@
       <!-- add more fields here -->
     </form>
 
-    <button onclick="fb_write()">Submit</button>
+    <button onclick="fb_write()">Submit form</button>
+
+      
+    <form id="reviewForm">
+      <label for="userReview">Please leave a review</label>
+      <input type="text" id="userReview" name="userReview" required />
+
+      </form>
+
+    <button onclick="fb_review()"> Submit review </button>
 
     <p id="p_name"> </p>
     <p id="p_favoriteFruit"> </p>
