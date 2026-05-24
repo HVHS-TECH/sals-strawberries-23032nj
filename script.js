@@ -1,9 +1,9 @@
 /************************************* 
 // script.js
 // written by Nia 
-// Sal's Strawberries
+// Nia's Nectarines
 *************************************/
-console.log("Running Sal's Strawberries")
+console.log("Running Nia's Nectarines")
 
 //constants
 const HTML_OUTPUT = document.getElementById("databaseOutput");
@@ -11,25 +11,16 @@ const HTML_OUTPUT = document.getElementById("databaseOutput");
 //variables
 var GLOBAL_user;
 let loggedIn = false;
+let formFilled = false;
+let emailFilled = false;
 var userName;
 var userEmail;
-var favFruit;
 let customer;
 let customerFavFruit ;
 
 /************************************* 
 //logging in
 *************************************/
-
- firebase.database().ref('/').set (
-  {
-    fruits: {
-      customers: {
-        Anu: 'Watermelon'
-      }
-    }
-  }
- );
 
 function fb_authenticate() {
   console.log("Logging in user")
@@ -70,9 +61,9 @@ function fb_popupLogin() {
   });
 }
 
-/************************************* 
+/**************************************************************************************** 
 //getting the users information, saving it to the database, and displaying it in an email
-*************************************/
+*****************************************************************************************/
 
 function fb_write(){
     // Get the form data
@@ -84,10 +75,12 @@ function fb_write(){
       p_name.textContent = "Welcome " + personName  
       p_favoriteFruit.textContent = "Your favourite fruit is " + personFruit
       p_servings.textContent = "You like to have it " + personServings + " times."
+      p_offer.textContent = "Please click 'email' to receice your offer"
 
       customer = personName
       customerFavFruit = personFruit
       saveFavFruit()
+      formFilled = true;
     } else {
       alert("Please log in first");
     }
@@ -95,13 +88,29 @@ function fb_write(){
 
   function saveFavFruit(){
    console.log("Running savefavFruit()")
-   firebase.database().ref('/fruits/customers/'+customer).update({customerFavFruit});
+   firebase.database().ref('/fruits/customers/'+customer).set(customerFavFruit);
   }
 
-  //old code
+  function fb_email() {
+    if(loggedIn == true && formFilled == true) {
+    const personName = document.getElementById("name").value;
+    const personFruit = document.getElementById("favoriteFruit").value;
+    const personServings = document.getElementById("fruitQuantity").value;
 
-//if(loggedIn == true) {
-//var favFruit = prompt("Hello " + userName + "! What is your favourite fruit?");
-//console.log(userName + " likes " + favFruit + " best.");
-//customer = userName
-//customerFavFruit = favFruit
+    console.log("running fb_email()");
+    p_email.textContent = "Thank you for purchasing from Nia's Nectarines " + personName + "! You have selected " + personServings + " helpings of " + personFruit 
+    p_emailTwo.textContent =  "Click purchase to finalise your purchase."
+    emailFilled = true;
+    } else {
+      alert("Please submit the form first");
+    }
+  }
+
+  function fb_purchase(){
+    if(loggedIn == true && formFilled == true && emailFilled == true) {
+    p_purchase.textContent = "Your purchase has been confirmed, you'll receive your order in 5 business days!! Thank you for shopping with Nia's Nectarines!"
+    }
+    else {
+      alert("Please click 'email' to recieve your offer first")
+    }
+  }

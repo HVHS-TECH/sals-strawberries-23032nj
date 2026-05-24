@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sal’s Strawberry Saloon</title>
+  <title>Nia's Nectarines</title>
   <link rel="icon" type="image/x-icon" href="assets/strawberry.jpg">
   <link rel="stylesheet" href="style.css" />
 
@@ -23,7 +23,7 @@
 </head>
 <body>
   <div class="container">
-    <h1>Sal’s Strawberry Saloon</h1>
+    <h1>Nia's Nectarines</h1>
     <h2>(and other fruit products)</h2>
 
     <button onclick="fb_authenticate()">Login with Google</button> 
@@ -38,7 +38,7 @@
       <input type="text" id="favoriteFruit" name="favoriteFruit" required />
 
       <label for="fruitQuantity">How many servings per week?</label>
-      <input type="number" id="fruitQuantity" name="fruitQuantity" required />
+      <input type="number" id="fruitQuantity" name="fruitQuantity" min="1" max="30" required />
 
       <!-- add more fields here -->
     </form>
@@ -48,6 +48,14 @@
     <p id="p_name"> </p>
     <p id="p_favoriteFruit"> </p>
     <p id="p_servings"> </p>
+    <p id="p_offer"> </p>
+
+    <button onclick="fb_email()">Email</button>
+    <p id = "p_email"> </p>
+    <p id = p_emailTwo> </p>
+
+    <button onclick="fb_purchase()">Purchase</button>
+    <p id="p_purchase"> </p>
 
 
     <p id="statusMessage"></p>
