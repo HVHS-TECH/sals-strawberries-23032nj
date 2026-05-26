@@ -124,6 +124,12 @@ function fb_write(){
   )
  }
 
+ function viewReviews() {
+  if (formFillec == true) {
+    p_reviews.textContent 
+  }
+ }
+
   function fb_email() {
     if(loggedIn == true && formFilled == true) {
     const personName = document.getElementById("name").value;
