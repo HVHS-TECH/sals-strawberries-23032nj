@@ -57,6 +57,8 @@ function fb_popupLogin() {
     GLOBAL_user = result.user; //save the user details object to a global variable
     console.log("User has logged in")
     userName = GLOBAL_user.displayName
+    userEmail = GLOBAL_user.email
+    userID = GLOBAL_user.uid
     console.log(GLOBAL_user);
     console.log("Name: " + userName)
     console.log("Email " + userEmail)
@@ -124,8 +126,9 @@ function fb_write(){
   )
  }
 
- function viewReviews() {
-  if (formFillec == true) {
+ function fb_viewReviews() {
+  if (formFilled == true) {
+    fb_logDatabaseRead();
     p_reviews.textContent 
   }
  }
@@ -153,3 +156,24 @@ function fb_write(){
       alert("Please click 'email' to recieve your offer first")
     }
   }
+
+  function fb_logDatabaseRead() {
+  console.log("Reading message");
+  firebase.database().ref("/fruits").child("message").once("value", display, fb_readError);
+  console.log("Leaving fb_logDatabaseRead");
+}
+
+  function display(snapshot) {
+   var dbData = snapshot.val();
+   if (dbData == null) { //if there is no data, dbData will be null
+      console.log('There was no record when trying to read the message');
+    }
+    else {
+      console.log("The message is: " + dbData)
+    }
+}
+
+function fb_readError(error) {
+  console.log("There was an error reading the message");
+  console.error(error);
+}
