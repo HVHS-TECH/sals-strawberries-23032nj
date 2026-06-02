@@ -158,10 +158,10 @@ function fb_write(){
   }
 
   function fb_logDatabaseRead() {
-  console.log("Reading message");
-  firebase.database().ref("/fruits").child("message").once("value", display, fb_readError);
-  console.log("Leaving fb_logDatabaseRead");
-}
+    console.log("Reading message");
+    firebase.database().ref("/fruits/customers/").once("value", display, fb_readError);
+    console.log("Leaving fb_logDatabaseRead");
+  }
 
   function display(snapshot) {
    var dbData = snapshot.val();
